@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <!-- Permisos de Bluetooth para Android 11 (API 30) e inferiores -->
+    <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
+
+    <!--
+        Permisos de Bluetooth para Android 12 (API 31) y superiores.
+        Estos permisos son necesarios para descubrir dispositivos, conectarse a ellos,
+        y (opcionalmente) publicitar la presencia del dispositivo.
+    -->
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
+                     android:usesPermissionFlags="neverForLocation"
+                     tools:targetApi="s" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <!-- <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE" /> -->
+
+    <!--
+        Permiso de ubicación. Requerido para escanear dispositivos Bluetooth en Android 11 (API 30) e inferiores.
+        En Android 12 (API 31) y superiores, BLUETOOTH_SCAN con usesPermissionFlags="neverForLocation"
+        permite escanear sin permiso de ubicación. Sin embargo, si necesitas la ubicación del dispositivo
+        o no usas 'neverForLocation', este permiso sigue siendo necesario.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
+
+
+    <!-- Declara que tu app usa Bluetooth, pero no es estrictamente necesario para que funcione -->
+    <uses-feature android:name="android.hardware.bluetooth" android:required="false"/>
+    <!-- Para Bluetooth Low Energy (BLE), si lo fueras a usar: -->
+    <!-- <uses-feature android:name="android.hardware.bluetooth_le" android:required="false"/> -->
+
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.Ollaz3"
+        tools:targetApi="31">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.Ollaz3">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+
+</manifest>
