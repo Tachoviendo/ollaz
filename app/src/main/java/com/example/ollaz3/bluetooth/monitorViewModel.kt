@@ -1,13 +1,9 @@
-package com.example.ollaz3.ui.screens // O donde prefieras
+package com.example.ollaz3.bluetooth // O donde prefieras
 
 import android.app.Application
-import androidx.compose.animation.core.copy
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.media3.common.util.Log
-import com.example.ollaz3.bluetooth.SimpleArduinoServer // Asegúrate de importar tu clase
-import com.example.ollaz3.bluetooth.SimpleArduinoState // Y el estado
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
