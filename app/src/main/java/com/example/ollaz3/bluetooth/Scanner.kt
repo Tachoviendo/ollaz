@@ -10,6 +10,7 @@ import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresPermission
 import androidx.core.app.ActivityCompat
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,6 +38,10 @@ class Scanner(
     private val _scannerState = MutableStateFlow(ScannerState())
     val scannerState: StateFlow<ScannerState> = _scannerState.asStateFlow()
     private val discoveredDevicesSet = mutableSetOf<DiscoveredBluetoothDevice>()
+
+    val isDiscovering: Boolean
+        @RequiresPermission(Manifest.permission.BLUETOOTH_SCAN)
+        get() = bluetoothAdapter?.isDiscovering ?: false
 
     private val discoveryReceiver = object : BroadcastReceiver() {
         override fun onReceive(receivedContext: Context, intent: Intent) {

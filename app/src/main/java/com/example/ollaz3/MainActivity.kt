@@ -21,8 +21,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.ollaz3.ui.screens.ConnectDeviceScreen
 import com.example.ollaz3.ui.screens.MainScreen
 import com.example.ollaz3.ui.screens.MonitorScreen // Cambiaremos cómo se llama
-import com.example.ollaz3.ui.screens.MonitorViewModel
-import com.example.ollaz3.ui.screens.MonitorViewModelFactory // Ya lo tienes
+import com.example.ollaz3.bluetooth.MonitorViewModel
+import com.example.ollaz3.bluetooth.MonitorViewModelFactory // Ya lo tienes
 import com.example.ollaz3.ui.screens.Recetario // Renombrado para claridad, o usa tu nombre
 // import com.example.ollaz3.ui.screens.MonitorViewModelFactory // No es necesario si se pasa el ViewModel
 // import com.example.ollaz3.viewmodels.MonitorViewModel // Mueve la clase ViewModel a su propio archivo
@@ -36,6 +36,7 @@ object AppDestinations {
     const val CONNECT_DEVICE_SCREEN = "connect_device_screen" // Asumimos que esta pantalla podría necesitar el ViewModel también
     const val RECIPE_BOOK_SCREEN = "recetario"
     const val TEMP_MONITOR_SCREEN = "temp_monitor_screen"
+    const val COOK = "cocinar"
 }
 
 class MainActivity : ComponentActivity() {
