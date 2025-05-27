@@ -100,8 +100,6 @@ Tutores:
 
 Este proyecto es completamente libre. Podés modificar, distribuir y adaptarlo como desees.
 
-> Si querés una licencia formal, se recomienda usar [MIT License](https://opensource.org/licenses/MIT) o [Creative Commons](https://creativecommons.org/licenses/by/4.0/).
-
 ---
 
 ## 📸 Redes y más info
