@@ -111,6 +111,4 @@ Podés ver más sobre el proyecto en nuestro Instagram:
 
 ---
 
-## 📁 Repositorio
-
-https://github.com/Tachoviendo/ollaz
+##Muchas gracias por ver.
