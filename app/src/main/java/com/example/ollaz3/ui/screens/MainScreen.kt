@@ -1,23 +1,47 @@
 package com.example.ollaz3.ui.screens
 
+
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import kotlinx.coroutines.launch
-
-
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.ModalDrawerSheet
+import androidx.compose.material3.ModalNavigationDrawer
+import androidx.compose.material3.NavigationDrawerItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.rememberDrawerState
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.example.ollaz3.ui.theme.DarkColorScheme as Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.ollaz3.R
 import com.example.ollaz3.bluetooth.MonitorViewModel
+import kotlinx.coroutines.launch
+import com.example.ollaz3.ui.theme.DarkColorScheme as Color
 
 @Composable
 fun YellowButton(text: String, onClick: () -> Unit) {
@@ -47,6 +71,8 @@ fun MainScreen(
     onConnectClicked: () -> Unit,
     onTemperatureMonitorClicked: () -> Unit,
     onRecipeBookClicked: () -> Unit,
+    onOllasClicked: () -> Unit,
+    onZlinkClicked: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     val drawerState = rememberDrawerState(DrawerValue.Closed)
@@ -89,12 +115,7 @@ fun MainScreen(
             topBar = {
                 TopAppBar(
                     title = {
-                        Text(
-                            text = "ZLink",
-                            color = Color.tertiary,
-                            modifier = Modifier.fillMaxWidth(),
-                            textAlign = TextAlign.Center
-                        )
+
                     },
                     navigationIcon = {
                         IconButton(onClick = {
@@ -127,15 +148,21 @@ fun MainScreen(
                     .fillMaxSize()
                     .padding(innerPadding)
                     .padding(horizontal = 32.dp),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                horizontalAlignment = Alignment.CenterHorizontally
+
             ) {
+                Image(
+                    painter = painterResource(id = R.drawable.logo), // Reemplaza con tu ID de drawable
+                    contentDescription = stringResource(id = R.string.descripcion_de_mi_imagen), // Descripción para accesibilidad
+                    modifier = Modifier.size(300.dp)
+                )
+                Spacer(modifier = Modifier.height(24.dp))
 
                 YellowButton("Recetario", onClick = onRecipeBookClicked)
                 Spacer(modifier = Modifier.height(24.dp))
-                YellowButton("Ollas Brujas", onClick = onTemperatureMonitorClicked)
+                YellowButton("Ollas Brujas", onClick = onOllasClicked)
                 Spacer(modifier = Modifier.height(24.dp))
-                YellowButton("Sobre Nosotros", onClick = { /* TODO */ })
+                YellowButton("Sobre Nosotros", onClick =  onZlinkClicked)
 
             }
         }

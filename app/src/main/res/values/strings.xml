@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">ollaz3</string>
+    <string name="descripcion_de_mi_imagen" />
 </resources>

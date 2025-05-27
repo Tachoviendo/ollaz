@@ -1,8 +1,6 @@
 package com.example.ollaz3.ui.screens
 
 import android.Manifest
-import android.annotation.SuppressLint
-import androidx.annotation.OptIn
 import androidx.annotation.RequiresPermission
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -15,40 +13,26 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Divider
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavController
 import com.example.ollaz3.bluetooth.MonitorViewModel
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 import com.example.ollaz3.ui.theme.DarkColorScheme as Color
-import com.example.ollaz3.ui.screens.SelectedRecipeDetails
-import com.example.ollaz3.ui.screens.SelectedRecipeCook
 
 data class RecipeItem(
     val id: String,
@@ -73,7 +57,7 @@ fun Recetario
         listOf(
             RecipeItem(
                 id = "1",
-                name = "Sopa de Pollo",
+                name = "Sopa",
                 description = "4 personas",
                 ingredientes = listOf("1 Papa", "1 batata", "1 zanahoria", "apio", "1 trozo de repollo", "1 choclo", "1 ajo", "cebolla de verdeo", "puerro", "2,5 Litros de agua", "Condimentos al gusto: Sal, laurel, orégano"),
                 preparacion = "Se cortan todas las verduras, se colocan" +
@@ -81,7 +65,73 @@ fun Recetario
                         "y el agua. Se lleva a hervor y luego se" +
                         "coloca dentro de la olla bruja por alrededor" +
                         "de 3 horas.",
-                defaultTimerMinutes = 180),
+                defaultTimerMinutes = 1),
+
+            RecipeItem(
+                id = "2",
+                name = "Arroz con Verduras",
+                description = "4 personas",
+                ingredientes = listOf("1 cebolla", "½ ají", "1 ajo", "1 papa", "1 trozo de calabaza", "1 batata", "1 choclo", "1 taza de arroz", "1½ litro de agua", "Condimentos a gusto: Sal, ají molido, pimentón"),
+                preparacion = "Se rehoga la cebolla con el ají y el ajo durante algunos minutos. Se agrega el arroz para nacarar durante 2 minutos. Se agrega 1,5 litros de agua junto con el resto de las verduras y condimentos. Se lleva a hervor y luego se coloca dentro de la olla bruja por alrededor de 45 minutos.",
+                defaultTimerMinutes = 45
+            ),
+            RecipeItem(
+                id = "3",
+                name = "Guisado de Carne",
+                description = "4 personas",
+                ingredientes = listOf("1 cebolla", "1 zanahoria", "1 trozo de calabaza", "1 papa", "2 zapallitos", "400 g de carne (Roast beef)", "1 taza de agua", "Condimentos a gusto: sal, pimienta, orégano, ají molido"),
+                preparacion = "Se cortan las verduras y la carne en trozos pequeños. Se coloca la cacerola en el fuego, se le agrega un poco de aceite. Se rehogan la cebolla y la zanahoria junto con los condimentos. Se agrega la carne y el resto de las verduras. Se deja unos minutos para que tome sabor y luego se incorporan 200 ml de agua. Se lleva a hervor y luego se coloca dentro de la olla bruja por 1 hora.",
+                defaultTimerMinutes = 60
+            ),
+            RecipeItem(
+                id = "4",
+                name = "Guiso de Lentejas",
+                description = "4 personas",
+                ingredientes = listOf("1 zanahoria", "1 cebolla", "1 ajo", "½ ají", "1 trozo de calabaza", "1 taza de lentejas (remojadas)", "5 cucharadas de aceite", "1½ litros de agua", "Opcional: panceta y/o chorizo colorado", "Condimentos a gusto: sal, laurel, ají molido, pimienta"),
+                preparacion = "Se ponen en remojo las lentejas desde el día anterior. Se fríen en aceite la cebolla, el ají, la zanahoria y el ajo durante algunos minutos. Se agregan las lentejas escurridas, la calabaza, los condimentos y el agua. Se lleva a hervor y luego se coloca dentro de la olla bruja por 3 horas.",
+                defaultTimerMinutes = 180
+            ),
+            RecipeItem(
+                id = "5",
+                name = "Puchero",
+                description = "4 personas",
+                ingredientes = listOf("1 papa", "1 trozo de calabaza", "1 batata", "1 zanahoria", "1 cebolla", "1 trozo de brócoli", "1 puñado de arvejas", "½ kilo de falda o caracú", "2 litros de agua", "Opcional: puerro, cebolla de verdeo, choclo", "Condimentos a gusto: Sal, laurel"),
+                preparacion = "Se pone la carne, las verduras y el agua en la olla. Se lleva a hervor y luego se coloca dentro de la olla bruja por 3 horas.",
+                defaultTimerMinutes = 180
+            ),
+            RecipeItem(
+                id = "6",
+                name = "Cocido de Arroz y Porotos Mungo",
+                description = "4 personas",
+                ingredientes = listOf("1 cebolla", "1 ajo", "1 ají morrón", "1 zanahoria", "1 trozo de calabaza", "1 batata", "1 trozo de repollo colorado", "2 tomates", "½ taza de porotos mungo (remojados)", "1 taza de arroz blanco", "1½ litro de agua", "Condimentos a gusto: sal, pimienta, orégano, ají molido, laurel", "Opcional: salchichas cocidas en trozos"),
+                preparacion = "Se coloca la cacerola en el fuego con un poco de aceite. Se rehogan la cebolla, el ají, el ajo y la zanahoria. Se incorpora el tomate. Se agregan los porotos y un litro de agua, cocinando por 15 minutos. Luego se agregan la calabaza, la batata, el arroz, el repollo y ½ litro más de agua. Se lleva a hervor y se coloca dentro de la olla bruja por 2 horas.",
+                defaultTimerMinutes = 120
+            ),
+            RecipeItem(
+                id = "7",
+                name = "Arroz con Leche",
+                description = "4 personas",
+                ingredientes = listOf("1 taza de arroz (200 g)", "120 g de azúcar", "1 litro de leche", "1 pizca de sal", "Opcional: cascarita de limón o naranja, ramita de canela"),
+                preparacion = "Se pone la leche y el arroz en la cacerola. A los 10 minutos se le agrega el azúcar. Se lleva a hervor y luego se coloca dentro de la olla bruja por 2 horas.",
+                defaultTimerMinutes = 120
+            ),
+            RecipeItem(
+                id = "8",
+                name = "Mermelada de Naranjas",
+                description = "Rinde 2 kg de mermelada",
+                ingredientes = listOf("4 a 6 naranjas agrias", "1 manzana roja", "1 kg de azúcar", "150 ml de agua"),
+                preparacion = "Se lavan y cortan las naranjas (quitando las semillas) y la manzana. Se procesa todo con Minipimer o similar. Se coloca en una olla con el azúcar y el agua. Se lleva a hervor por 5 minutos y luego se coloca dentro de la olla bruja por aproximadamente 12 horas.",
+                defaultTimerMinutes = 720
+            )
+
+
+
+
+
+
+
+
+
 
         )
     }

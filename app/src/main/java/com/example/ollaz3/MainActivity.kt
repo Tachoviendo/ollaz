@@ -24,6 +24,8 @@ import com.example.ollaz3.ui.screens.MonitorScreen // Cambiaremos cómo se llama
 import com.example.ollaz3.bluetooth.MonitorViewModel
 import com.example.ollaz3.bluetooth.MonitorViewModelFactory // Ya lo tienes
 import com.example.ollaz3.ui.screens.Recetario // Renombrado para claridad, o usa tu nombre
+import com.example.ollaz3.ui.screens.ollasInfo
+import com.example.ollaz3.ui.screens.zlinkInfo
 // import com.example.ollaz3.ui.screens.MonitorViewModelFactory // No es necesario si se pasa el ViewModel
 // import com.example.ollaz3.viewmodels.MonitorViewModel // Mueve la clase ViewModel a su propio archivo
 // import com.example.ollaz3.ui.screens.MonitorViewModelFactory // Ya lo tienes
@@ -37,6 +39,8 @@ object AppDestinations {
     const val RECIPE_BOOK_SCREEN = "recetario"
     const val TEMP_MONITOR_SCREEN = "temp_monitor_screen"
     const val COOK = "cocinar"
+    const val OLLAS = "ollas_info"
+    const val ZLINK = "zlink_info"
 }
 
 class MainActivity : ComponentActivity() {
@@ -97,9 +101,17 @@ fun AppNavigation(navController: NavHostController, viewModel: MonitorViewModel)
                 onRecipeBookClicked = {
                     navController.navigate(AppDestinations.RECIPE_BOOK_SCREEN)
                 },
+
                 onTemperatureMonitorClicked = {
                     navController.navigate(AppDestinations.TEMP_MONITOR_SCREEN)
+                },
+                onOllasClicked = {
+                    navController.navigate(AppDestinations.OLLAS)
+                },
+                onZlinkClicked = {
+                    navController.navigate(AppDestinations.ZLINK)
                 }
+
             )
         }
         composable(AppDestinations.CONNECT_DEVICE_SCREEN) {
@@ -110,10 +122,12 @@ fun AppNavigation(navController: NavHostController, viewModel: MonitorViewModel)
             )
         }
 
-        //nada al idle le pinto que este todo el rojo pero está bien jiji
+        //nada al ide le pinto que este todo el rojo pero está bien jiji
 
 
         composable(AppDestinations.RECIPE_BOOK_SCREEN) @androidx.annotation.RequiresPermission(allOf = [android.Manifest.permission.BLUETOOTH_SCAN, android.Manifest.permission.BLUETOOTH_CONNECT]) {
+
+
             Recetario( // Asegúrate de usar el nombre correcto de tu Composable (Recetario o RecetarioScreen)
                 navController = navController,
                 viewModel = viewModel,
@@ -128,7 +142,16 @@ fun AppNavigation(navController: NavHostController, viewModel: MonitorViewModel)
                 viewModel = viewModel,
                 modifier = Modifier.fillMaxSize() // <<-- AÑADE EL MODIFIER
             )
+
             // Ya NO se crea un ViewModel aquí dentro. Se usa la instancia compartida.
+        }
+        composable (AppDestinations.OLLAS){
+            ollasInfo()
+
+        }
+        composable (AppDestinations.ZLINK){
+            zlinkInfo()
+
         }
     }
 }

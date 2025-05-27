@@ -25,6 +25,7 @@
         o no usas 'neverForLocation', este permiso sigue siendo necesario.
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
 
 
