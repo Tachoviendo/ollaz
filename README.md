@@ -72,7 +72,7 @@ El proyecto fue diseñado, construido y probado bajo metodologías ágiles (Scru
 
 ---
 
-## 🚀 Futuras mejoras
+## 🚀 Pasos para continuar el proyecto.
 
 - Migración de Bluetooth a WiFi para integración con hogares inteligentes.
 - Creación de PCB dedicada.
