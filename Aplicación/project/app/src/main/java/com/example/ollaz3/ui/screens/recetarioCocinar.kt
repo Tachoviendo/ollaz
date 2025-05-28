@@ -29,6 +29,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.app.NotificationCompat
@@ -43,7 +44,7 @@ const val CHANNEL_ID = "timer_channel"
 const val NOTIFICATION_ID = 1
 const val TEMP_NOTIFICATION_ID = 2 // ID diferente para la notificación de temperatura
 
-
+var primeraVez= true
 fun createNotificationChannel(context: Context) {
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
         val name = "Timer Notifications"
@@ -92,7 +93,15 @@ fun SelectedRecipeCook(
     val data = uiState.lastReceivedData?.trim()
 
 
-    val temperatureLimit: Float = 31.0f
+
+
+    val tempFloat = data?.dropLast(2)?.toFloatOrNull()
+
+
+    Text(text="Temperatura: $tempFloat")
+
+
+    val temperatureLimit: Float = 23.0f
 
     LaunchedEffect(data, uiState.isConnected, recipe.name) {
         if (uiState.isConnected && data!= null) {
@@ -241,39 +250,101 @@ fun SelectedRecipeCook(
             Divider(modifier = Modifier.fillMaxWidth(), thickness = 2.dp, color = DarkColorScheme.tertiary)
             Spacer(modifier = Modifier.height(24.dp))
             Text("Temporizador:", style = MaterialTheme.typography.titleMedium)
+
+
             val minutes = timeRemainingSeconds / 60
             val seconds = timeRemainingSeconds % 60
-            Text(
-                text = String.format("%02d:%02d", minutes, seconds),
-                style = MaterialTheme.typography.displayMedium.copy(fontSize = 50.sp), // Tamaño más pequeño
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.padding(vertical = 8.dp)
-            )
-            Button(
-                onClick = {
+            var timerButtontext = ""
 
-                    if (uiState.isConnected) {
-                        onTimerToggle()
-                    }
-                },
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = if (uiState.isConnected) DarkColorScheme.primary else MaterialTheme.colorScheme.surface.copy(alpha = 0.12f) // Color deshabilitado
-                ),
-                modifier = Modifier
-                    .fillMaxWidth(0.7f)
-                    .padding(vertical = 8.dp),
-                enabled = uiState.isConnected // Habilita el botón del timer solo si está conectado
-            ) {
-                val timerButtonText = when {
-                    isTimerRunning -> "Detener Timer"
-                    timeRemainingSeconds > 0 && timeRemainingSeconds < recipe.defaultTimerMinutes * 60 -> "Continuar Timer"
-                    else -> "Iniciar Timer"
-
-                }
+            if (primeraVez){
                 Text(
-                    text = timerButtonText,
-                    color = DarkColorScheme.tertiary)
+                    text = String.format("%02d:%02d", minutes, seconds),
+                    style = MaterialTheme.typography.displayMedium.copy(fontSize = 50.sp), // Tamaño más pequeño
+                    fontWeight = FontWeight.Bold,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+
+            }else{
+                timerButtontext = "Reiniciar"
+                Text(
+                    text = "Cocción termianda",
+                    style = MaterialTheme.typography.displayMedium.copy(fontSize = 30.sp), // Tamaño más pequeño
+                    fontWeight = FontWeight.Bold,
+                    textAlign = TextAlign.Center,
+                    modifier = Modifier.padding(vertical = 8.dp)
+                )
+
             }
+
+
+
+
+
+            @Composable
+            fun boton(text: String){
+                Button(
+                    onClick = {
+                        if (uiState.isConnected) {
+
+                                onTimerToggle()
+                                if (!primeraVez){
+                                    primeraVez = true
+                                }
+
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = if (uiState.isConnected) DarkColorScheme.primary else MaterialTheme.colorScheme.surface.copy(alpha = 0.12f) // Color deshabilitado
+                    ),
+                    modifier = Modifier
+                        .fillMaxWidth(0.7f)
+                        .padding(vertical = 8.dp),
+                    enabled = uiState.isConnected // Habilita el botón del timer solo si está conectado
+                ) {
+                    Text(
+                        text = text,
+                        color = DarkColorScheme.tertiary
+                    )
+                }
+            }
+
+
+
+
+            if (isTimerRunning){
+
+
+                timerButtontext = "Detener Timer"
+                boton(timerButtontext)
+            }
+            else if (timeRemainingSeconds> 0 && timeRemainingSeconds < recipe.defaultTimerMinutes * 60){
+
+                timerButtontext = "Continuar Timer"
+                boton(timerButtontext)
+            }
+            else if (timeRemainingSeconds == 0){
+                if (primeraVez){
+                    primeraVez = false
+                }
+                timerButtontext = "Reiniciar"
+                boton(timerButtontext)
+            }
+            else{
+                if (!primeraVez){
+                    timerButtontext = "Reiniciar"
+                }
+                else{
+                    timerButtontext = "Iniciar Timer"
+                }
+
+                boton(timerButtontext)
+
+            }
+
+
+
+
+
 
             Spacer(modifier = Modifier.height(16.dp))
             TextButton(onClick = {

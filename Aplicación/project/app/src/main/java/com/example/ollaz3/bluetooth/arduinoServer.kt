@@ -25,7 +25,7 @@ import java.util.UUID
 // Estado simplificado
 data class SimpleArduinoState(
     val lastReceivedData: String? = null,
-    val isConnected: Boolean = false,
+    var isConnected: Boolean = false,
     val errorMessage: String? = null
 )
 
