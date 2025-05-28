@@ -1,6 +1,6 @@
 # Ollaz - Olla Bruja Inteligente 🔥📱
 
-Ollaz es una olla bruja inteligente desarrollada por el equipo ZLink como proyecto integrador de tecnologías. Está diseñada para optimizar la cocción pasiva de alimentos, reduciendo significativamente el consumo de energía, mientras el usuario monitorea la temperatura en tiempo real desde una aplicación Android.
+Ollaz es una olla bruja inteligente. desarrollada por el equipo ZLink como proyecto integrador de tecnologías. Está diseñada para optimizar la cocción pasiva de alimentos, reduciendo significativamente el consumo de energía, mientras el usuario monitorea la temperatura en tiempo real desde una aplicación Android.
 
 ## 🌱 ¿Qué es una Olla Bruja?
 
